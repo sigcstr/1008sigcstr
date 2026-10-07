@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>perfect home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ballet:opsz@16..72&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <style type="text/css">
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #fff;
+      overflow: hidden;
+      height: 100vh;
+    }
+    html{
+  font-family: "Ballet", cursive;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+    .stage {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: min(100vw, calc(100vh * 1024 / 665));
+      height: min(100vh, calc(100vw * 665 / 1024));
+      --spread: 1;
+      container-type: size;
+      pointer-events: none;
+    }
+    .bg-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-image: url('phbg2.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: 0;
+      transition: filter 0.1s ease;
+    }
+    .bg-layer::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg-tint, transparent);
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+    .title {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 150px;
+      font-style: normal;
+      color: #e5e5e5;
+      z-index: 1;
+      text-align: center;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .controls {
+      position: absolute;
+      top: 5.5%;
+      left: 1%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      z-index: 3;
+      pointer-events: auto;
+      
+      padding: 14px 18px;
+      border-radius: 12px;
+      ;
+    }
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .control-group label {
+      font-size: 12px;
+      color: white;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .controls input[type="range"] {
+      width: 180px;
+      accent-color: gray;
+      cursor: pointer;
+    }
+    .btn-random {
+      padding: 6px 12px;
+      font-family: "Instrument Serif", serif;
+  font-weight: 400;
+  font-style: normal;
+      font-size: 20px;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(4px);
+      color: #444;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-weight: 500;
+    }
+    .btn-random:hover {
+      background: rgba(255, 255, 255, 0.85);
+      border-color: rgba(0, 0, 0, 0.2);
+      color: #111;
+    }
+    .handle {
+      position: absolute;
+      left: calc(50% + (var(--x) - 50%) * var(--spread));
+      top: calc(50% + (var(--y) - 50%) * var(--spread));
+      width: var(--w);
+      transform: translate(-50%, -50%);
+      background: var(--tint, transparent);
+      pointer-events: none;
+      transition: background 0.15s ease;
+      z-index: 1;
+    }
+    .handle img {
+      display: block;
+      width: 100%;
+      height: auto;
+      mix-blend-mode: multiply;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-layer" id="bgLayer"></div>
+  <div class="stage" id="stage">
+    <div class="title">Perfect Home</div>
+    <div class="controls">
+      <div class="control-group">
+        
+        <input type="range" id="spread" min="0" max="200" value="100">
+      </div>
+      <div class="control-group">
+        
+        <input type="range" id="randomColor" min="0" max="100" value="0">
+      </div>
+      <div class="control-group">
+        
+        <input type="range" id="bgColor" min="0" max="360" value="0">
+      </div>
+      <button type="button" class="btn-random" id="btnRandom">Shuffle Colors</button>
+    </div>
+
+    <div class="handle" style="--x:32.6%; --y:28%; --w:10.4%"><img src="d1.png" alt=""></div>
+    <div class="handle" style="--x:55%; --y:32.5%; --w:12%"><img src="d6.png" alt=""></div>
+    <div class="handle" style="--x:73.8%; --y:35.5%; --w:9.7%"><img src="d3.png" alt=""></div>
+    <div class="handle" style="--x:14.3%; --y:42.7%; --w:15.4%"><img src="d10.png" alt=""></div>
+    <div class="handle" style="--x:36.7%; --y:51.7%; --w:8.4%"><img src="d9.png" alt=""></div>
+    <div class="handle" style="--x:50.9%; --y:66.8%; --w:7.8%"><img src="d7.png" alt=""></div>
+    <div class="handle" style="--x:67%; --y:56.4%; --w:8.2%"><img src="d8.png" alt=""></div>
+    <div class="handle" style="--x:84%; --y:62%; --w:7.3%"><img src="d5.png" alt=""></div>
+    <div class="handle" style="--x:26%; --y:69.8%; --w:12.4%"><img src="d2.png" alt=""></div>
+    <div class="handle" style="--x:68.5%; --y:80.6%; --w:14.4%"><img src="d4.png" alt=""></div>
+  </div>
+
+  <script>
+    const stage = document.getElementById("stage");
+    const spread = document.getElementById("spread");
+    const randomColor = document.getElementById("randomColor");
+    const bgColor = document.getElementById("bgColor");
+    const bgLayer = document.getElementById("bgLayer");
+    const btnRandom = document.getElementById("btnRandom");
+
+    const handles = stage.querySelectorAll(".handle");
+    let randomHues = [];
+
+    // 각 이미지(.handle) 요소마다 고유한 무작위 색상(Hue 0~359) 생성
+    function initRandomHues() {
+      randomHues = Array.from(handles).map(() => Math.floor(Math.random() * 360));
+    }
+
+    function update() {
+      
+      stage.style.setProperty("--spread", spread.value / 100);
+
+      
+      const randIntensity = Number(randomColor.value) / 100; // 0.0 ~ 1.0
+
+      if (randomHues.length !== handles.length) {
+        initRandomHues();
+      }
+
+      
+      handles.forEach((handle, index) => {
+        if (randIntensity === 0) {
+          
+          handle.style.setProperty("--tint", "transparent");
+        } else {
+          
+          const hue = randomHues[index];
+          const sat = Math.round(70 * randIntensity);
+          const lightness = 52; 
+          handle.style.setProperty("--tint", `hsl(${hue}, ${sat}%, ${lightness}%)`);
+        }
+      });
+
+      const bgHue = Number(bgColor.value);
+      if (bgHue === 0) {
+        bgLayer.style.filter = "none";
+        bgLayer.style.setProperty("--bg-tint", "transparent");
+      } else {
+        bgLayer.style.filter = `hue-rotate(${bgHue}deg)`;
+        bgLayer.style.setProperty("--bg-tint", `hsl(${bgHue}, 60%, 55%)`);
+      }
+    }
+
+    
+    spread.addEventListener("input", update);
+    randomColor.addEventListener("input", update);
+    bgColor.addEventListener("input", update);
+
+    if (btnRandom) {
+      btnRandom.addEventListener("click", () => {
+        initRandomHues(); // 색상 조합 무작위 재배치
+        update();
+      });
+    }
+
+    
+    initRandomHues();
+    update();
+  </script>
+</body>
+</html>
